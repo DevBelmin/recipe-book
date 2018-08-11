@@ -1,0 +1,15 @@
+<button type="button" class="list-group-item list-group-item-action">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="float-left">
+                <div><h5>{{ recipe.name }}</h5></div>
+                <div>{{ recipe.description }}</div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="float-right">
+                <img height="75" [src]="recipe.imagePath" alt="">
+            </div>
+        </div>
+    </div>
+</button>
