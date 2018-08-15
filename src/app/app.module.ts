@@ -13,6 +13,7 @@ import { RecipeDetailComponent } from './recipe-book/recipe-detail/recipe-detail
 import { NotFoundComponent } from './not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { RecipeDashboardComponent } from './recipe-book/recipe-dashboard/recipe-dashboard.component';
+import { ShoppingItemComponent } from './shopping-list/shopping-item/shopping-item.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { RecipeDashboardComponent } from './recipe-book/recipe-dashboard/recipe-
     RecipeItemComponent,
     RecipeDetailComponent,
     NotFoundComponent,
-    RecipeDashboardComponent
+    RecipeDashboardComponent,
+    ShoppingItemComponent
   ],
   imports: [
     BrowserModule,
