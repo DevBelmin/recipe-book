@@ -1,15 +1,16 @@
 <div class="row">
   <div class="col">
-      <h2>Recipe Name</h2>
+      <h2>{{ recipe.name }}</h2>
       <div ngbDropdown class="d-inline-block">
           <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Manage recipe</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
             <button class="dropdown-item">Action - 1</button>
             <button class="dropdown-item">Another Action</button>
-            <button class="dropdown-item">Something else is here</button>
+            <button class="dropdown-item">Something else</button>
           </div>
         </div> 
-      <p>Description</p> 
+      <p>{{ recipe.description }}</p> 
       <p>Ingridients</p> 
+      <img [src]="recipe.imagePath" class="img-responsive"  width="100%" height="auto" alt="">
   </div>
 </div>
