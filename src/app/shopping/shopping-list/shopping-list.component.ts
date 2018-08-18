@@ -9,9 +9,7 @@ import { Ingridient } from '../models/ingridient';
 export class ShoppingListComponent implements OnInit {
 
   ingridients : Ingridient[] = [];
-  newIngridientName: string;
-  newIngridientAmount: string;
-
+  
   constructor() { }
 
   ngOnInit() {
@@ -33,35 +31,24 @@ export class ShoppingListComponent implements OnInit {
     }
   }
 
-  addIngridient() {
-    if (this.newIngridientName && this.newIngridientAmount) {
-      this.ingridients.push(new Ingridient(this.newIngridientName, parseInt(this.newIngridientAmount, 10)));
-      this.clear();
-    }
+  addIngridient(ingridient: Ingridient) {
+    this.ingridients.push(ingridient);
   }
 
-  clear() {
-    this.newIngridientName = '';
-    this.newIngridientAmount = '';
-  }
+  deleteIngridient(ingridient: Ingridient) {
+    if (ingridient.name) {
 
-  delete() {
-    if (this.newIngridientName) {
-
-      let index = this.ingridients.findIndex(el => el.name.toLocaleLowerCase() === this.newIngridientName.toLocaleLowerCase());
+      let index = this.ingridients.findIndex(el => el.name.toLocaleLowerCase() === ingridient.name.toLocaleLowerCase());
 
       if (index != -1) {
-        let value = parseInt(this.newIngridientAmount, 10);
 
-        if (this.newIngridientAmount && this.ingridients[index].amount > value) {
-          this.ingridients[index].amount = this.ingridients[index].amount -  value;
+        if (ingridient.amount && this.ingridients[index].amount > ingridient.amount) {
+          this.ingridients[index].amount = this.ingridients[index].amount -  ingridient.amount;
         }
         else {
           this.ingridients.splice(index, 1);
         }
       }
     }
-
-    this.clear();
   }
 }
