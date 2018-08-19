@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Ingridient } from '../models/ingridient';
+import { ShoppingService } from '../shopping.service';
 
 @Component({
   selector: 'app-shopping-list',
@@ -8,47 +9,15 @@ import { Ingridient } from '../models/ingridient';
 })
 export class ShoppingListComponent implements OnInit {
 
-  ingridients : Ingridient[] = [];
+  ingridients : Ingridient[];
   
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit() {
+    this.ingridients = this.shoppingService.getIngridients();
 
-    if (!("ingridients" in localStorage)) {
-
-      let ingridients: Ingridient[] = [
-        new Ingridient("Apple", 14),
-        new Ingridient("Tomatoes", 2),
-        new Ingridient("Bananas", 1),
-      ];
-
-      this.ingridients.push(...ingridients);
-
-      localStorage.setItem("ingridients", JSON.stringify(ingridients));
-    }
-    else {
-      this.ingridients =  JSON.parse(localStorage.getItem("ingridients"));
-    }
-  }
-
-  addIngridient(ingridient: Ingridient) {
-    this.ingridients.push(ingridient);
-  }
-
-  deleteIngridient(ingridient: Ingridient) {
-    if (ingridient.name) {
-
-      let index = this.ingridients.findIndex(el => el.name.toLocaleLowerCase() === ingridient.name.toLocaleLowerCase());
-
-      if (index != -1) {
-
-        if (ingridient.amount && this.ingridients[index].amount > ingridient.amount) {
-          this.ingridients[index].amount = this.ingridients[index].amount -  ingridient.amount;
-        }
-        else {
-          this.ingridients.splice(index, 1);
-        }
-      }
-    }
+    this.shoppingService.onIngridientsChange.subscribe((ingridients: Ingridient[]) => {
+      this.ingridients = ingridients;
+    })
   }
 }

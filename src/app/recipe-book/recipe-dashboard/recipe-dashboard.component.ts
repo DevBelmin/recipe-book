@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../models/recipe';
 
 @Component({
   selector: 'app-recipe-dashboard',
@@ -8,15 +7,9 @@ import { Recipe } from '../models/recipe';
 })
 export class RecipeDashboardComponent implements OnInit {
 
-  recipe: Recipe;
-
   constructor() { }
 
   ngOnInit() {
-  }
-
-  onActiveRecipeChange(eventData: Recipe) {
-    this.recipe = eventData;
   }
 
 }

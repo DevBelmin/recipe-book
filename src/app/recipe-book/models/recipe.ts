@@ -1,4 +1,6 @@
+import { Ingridient } from "../../shopping/models/ingridient";
+
 export class Recipe {
 
-    constructor (public name: string, public description: string, public imagePath: string) {}
+    constructor (public name: string, public directions: string[], public imagePath: string, public ingridients: Ingridient[]) {}
 }

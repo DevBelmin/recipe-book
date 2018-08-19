@@ -1,16 +1,25 @@
 <div class="row">
-  <div class="col">
+  <div *ngIf="recipe" class="col">
       <h2>{{ recipe.name }}</h2>
       <div ngbDropdown class="d-inline-block">
           <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Manage recipe</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button class="dropdown-item">Action - 1</button>
-            <button class="dropdown-item">Another Action</button>
-            <button class="dropdown-item">Something else</button>
+            <button routerLink="/shopping" class="dropdown-item">To Shopping List</button>
+            <button class="dropdown-item">Edit recipe</button>
+            <button class="dropdown-item">Delete Recipe</button>
           </div>
         </div> 
       <p>{{ recipe.description }}</p> 
-      <p>Ingridients</p> 
-      <img [src]="recipe.imagePath" class="img-responsive"  width="100%" height="auto" alt="">
+      <div class="row">
+        <div class="col-sm-8">
+          <img [src]="recipe.imagePath" class="img-responsive"  width="100%" height="auto" alt="">
+        </div>
+      </div>
+      
+      <p>Directions:</p> 
+      <ul class="list-group list-group-flush">
+        <li *ngFor='let direction of recipe.directions' class="list-group-item">{{ direction }}</li>
+      </ul>
   </div>
+  <div *ngIf="!recipe"><h4>Please select a recipe...</h4></div>
 </div>

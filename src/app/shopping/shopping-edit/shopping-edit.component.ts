@@ -1,6 +1,6 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Ingridient } from '../models/ingridient';
-import { EventEmitter } from '@angular/core';
+import { ShoppingService } from '../shopping.service';
 
 @Component({
   selector: 'app-shopping-edit',
@@ -11,17 +11,17 @@ export class ShoppingListEditComponent implements OnInit {
 
   newIngridientName: string;
   newIngridientAmount: string;
-  @Output() onAdd: EventEmitter<Ingridient> = new EventEmitter();
-  @Output() onDelete: EventEmitter<Ingridient> = new EventEmitter();
 
-  constructor() { }
+  constructor(private shoppingService: ShoppingService) { }
 
   ngOnInit() {
   }
 
   addIngridient() {
     if (this.newIngridientName && this.newIngridientAmount) {
-      this.onAdd.emit(new Ingridient(this.newIngridientName, parseInt(this.newIngridientAmount, 10)))
+      this.shoppingService.addIngridient(
+        new Ingridient(this.newIngridientName, parseInt(this.newIngridientAmount, 10))
+      )
       this.clear();
     }
   }
@@ -31,8 +31,11 @@ export class ShoppingListEditComponent implements OnInit {
     this.newIngridientAmount = '';
   }
 
-  delete() {
-    this.onDelete.emit(new Ingridient(this.newIngridientName,parseInt(this.newIngridientAmount, 10)));
+  deleteIngridient() {
+    this.shoppingService.deleteIngridient(
+      new Ingridient(this.newIngridientName,parseInt(this.newIngridientAmount, 10))
+    );
+    
     this.clear();
   }
 
