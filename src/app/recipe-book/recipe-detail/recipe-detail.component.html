@@ -4,7 +4,7 @@
       <div ngbDropdown class="d-inline-block">
           <button class="btn btn-primary" id="dropdownBasic1" ngbDropdownToggle>Manage recipe</button>
           <div ngbDropdownMenu aria-labelledby="dropdownBasic1">
-            <button routerLink="/shopping" class="dropdown-item">To Shopping List</button>
+            <button (click)="addToShopping()" class="dropdown-item">To Shopping List</button>
             <button class="dropdown-item">Edit recipe</button>
             <button class="dropdown-item">Delete Recipe</button>
           </div>

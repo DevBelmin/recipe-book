@@ -1,40 +1,45 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Ingridient } from './models/ingridient';
+import { RecipeService } from '../recipe-book/recipe.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ShoppingService {
 
-  private ingridients: Ingridient[];
+  private ingridients: Ingridient[] = [];
 
   onIngridientsChange: EventEmitter<Ingridient[]> = new EventEmitter();
 
-  constructor() { 
-    if (!("ingridients" in localStorage)) {
-
-      this.ingridients = [
-        new Ingridient("Apple", 14),
-        new Ingridient("Tomatoes", 2),
-        new Ingridient("Bananas", 1),
-      ];
-
-      localStorage.setItem("ingridients", JSON.stringify(this.ingridients));
-    }
-    else {
-      this.ingridients =  JSON.parse(localStorage.getItem("ingridients"));
-    }
-    this.onIngridientsChange.emit(this.ingridients.slice());
+  constructor(private recipeService: RecipeService) {
   }
 
   getIngridients() : Ingridient[] {
-    this.onIngridientsChange.emit(this.ingridients.slice());
-    return this.ingridients.slice();
+    if (this.ingridients) {
+      this.onIngridientsChange.emit(this.ingridients.slice());
+      return this.ingridients.slice();
+    }
   }
 
-  addIngridient(ingridient: Ingridient) {
-    this.ingridients.push(ingridient);
+  addIngridient(ingridient: Ingridient, shouldEmit = true) {
+
+    let index = this.ingridients.findIndex(ing => ing.name.toLocaleLowerCase() === ingridient.name.toLocaleLowerCase());
+
+    if (index != -1) {
+      this.ingridients[index].amount += ingridient.amount;
+    }
+    else {
+      this.ingridients.push(ingridient);
+    }
+
     this.onIngridientsChange.emit(this.ingridients.slice());
+  }
+
+  addIngridients(ingridients: Ingridient[]) {
+
+    ingridients.forEach(element => {
+      this.addIngridient(element, false)
+    });
   }
 
   deleteIngridient(ingridient: Ingridient) {
